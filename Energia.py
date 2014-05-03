@@ -17,7 +17,7 @@ send=[x*2 for x in send] #The work is mutual so...
 send=[1/x for x in send] #And the distance is dividing so...
 ax.text(0, 0, 1.5, "$E_p$="+str(sum(send))+"$kQ^2$"+"$r^-$"+"$^1$", style="oblique") #Plotting the U in the plot
 
-
+ana=2
 mp.show() #Showing the plot
 #print "Here you have the distribution of the charges"
 #mp.show() #Showing the plot3D
