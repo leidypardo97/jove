@@ -14,7 +14,7 @@ for dot in range (dt):	#locating charges
 	z=input("z:")
 	e=input("Qn:")
 	n+=1
-	j[n,0],j[n,1],j[n,2],j[n,3]=x,y,z,(-((-1)**n)*e)	
+	j[n,0],j[n,1],j[n,2],j[n,3]=x,y,z,(e)	
         if (e<=0):			
 		ax.scatter(x, y, z, color="#15cc55", s=2500, lw=1, alpha=0.7)	#negative charges
 	else:					
