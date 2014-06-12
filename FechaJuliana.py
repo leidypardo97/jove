@@ -4,7 +4,7 @@ k=["January", "February", "March", "April", "May", "June", "July", "August", "Se
 y=int(raw_input("insert the year with all the digits > "))
 m=int(raw_input("insert month > "))
 if m>12:
-    print "A year only has 12 months, fool"
+    print "A year only has 12 months"
     sys.exit()
 d=int(raw_input("insert day > "))
 
