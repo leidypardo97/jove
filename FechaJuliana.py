@@ -2,18 +2,18 @@ import sys
 k=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 h=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-mean=int(raw_input("From Normal Date to Julian Date type 0, from Julian Date to Normal Date write 1 > "))
+mean=int(raw_input("From Normal Date to Julian Date type 0, from Julian Date to Normal Date type 1 > "))
 if mean!=0 or mean!=1:
-    print mean, "is not an option"
+    print mean, "Is not an option"
     sys.exit()
 
 if mean==0:
-    y=int(raw_input("insert the year with all the digits > "))
-    m=int(raw_input("insert month > "))
+    y=int(raw_input("Insert the year with all the digits > "))
+    m=int(raw_input("Insert month > "))
     if m>12:
         print "A year only has 12 months"
         sys.exit()
-    d=int(raw_input("insert day > "))
+    d=int(raw_input("Insert day > "))
     J=367*y-((7*(y+(m+9)/12))/4)-((3*((y+(m-9)/7)/100+1))/4)+275*m/9+d+1721029
     print "The Julian Date for the noon of", k[m-1], d,",", y, "is ",J
     print "This Day is", h[J%7]
