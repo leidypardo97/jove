@@ -1,6 +1,8 @@
-print "If You Find any Bug, Please Tell me What is"
 n=int(raw_input("Insert your number > "))
+#¿Para que haces eso?
 time=raw_input("Does your number have decimal part? (y/n) > ")
+#Aca debes tener en cuenta el caso en el que también usan mayúsculas
+#Me pareces que el debes construir el codigo de tal manera que reconozca el número y determinar si tiene parte decimal
 if time=="y":
     mov=int(raw_input("Please Insert the Decimal Part without comma i.e. 101010.0101=0101 > "))
 if time=="n":
