@@ -1,6 +1,6 @@
 print "If You Find any Bug, Please Tell me What is :)"
 n=int(raw_input("Insert your number > "))
-time=raw_input("Does your number have decimal part (y/n) > ")
+time=raw_input("Does your number have decimal part? (y/n) > ")
 if time=="y":
     mov=int(raw_input("Please Insert the Decimal Part without comma i.e. 101010.0101=0101 > "))
 m=int(raw_input("To make an integer a binarie write 0, to make a binary an integer write 1 > "))
