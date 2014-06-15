@@ -1,7 +1,7 @@
 from decimal import *
-print "If You Find any Bug, Please Tell me What is"
-n=Decimal(raw_input("Insert your number > "))
-m=int(raw_input("To make an integer a binarie write 0, to make a binary an integer write 1 > "))
+#print "If You Find any Bug, Please Tell me What is"
+n=Decimal(raw_input("Insert your number and press Enter> "))
+m=int(raw_input("To make an integer a binarie write 0, to make a binary an integer write 1 and press Enter > "))
 
 j=[]
 a=[]
@@ -30,9 +30,9 @@ if m==0:
             if mov<1.0:
                 r.append(0)
         r=[str(x) for x in r]
-        print keep, "is", str(sum(i))+"."+"".join(r), "in Binaries"
+        print keep, "Is", str(sum(i))+"."+"".join(r), "in Binaries"
     else:
-        print keep, "is", str(sum(i)), "in Binaries"
+        print keep, "Is", str(sum(i)), "in Binaries"
         
 if m==1:
     for x in range(len(str(n))):
@@ -59,4 +59,4 @@ if m==1:
         pure="".join(lost)
         for x in range(len(pure)):
             healer.append(int(pure[x])*(2**(-(x+1))))
-    print n, "is", sum(p)+sum(healer), "in Decimals"    
+    print n, "Is", sum(p)+sum(healer), "in Decimals"    
