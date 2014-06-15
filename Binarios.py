@@ -1,12 +1,6 @@
-n=int(raw_input("Insert your number > "))
-#¿Para que haces eso?
-time=raw_input("Does your number have decimal part? (y/n) > ")
-#Aca debes tener en cuenta el caso en el que también usan mayúsculas
-#Me pareces que el debes construir el codigo de tal manera que reconozca el número y determinar si tiene parte decimal
-if time=="y":
-    mov=int(raw_input("Please Insert the Decimal Part without comma i.e. 101010.0101=0101 > "))
-if time=="n":
-    mov=0
+from decimal import *
+print "If You Find any Bug, Please Tell me What is"
+n=Decimal(raw_input("Insert your number > "))
 m=int(raw_input("To make an integer a binarie write 0, to make a binary an integer write 1 > "))
 
 j=[]
@@ -15,6 +9,7 @@ i=[]
 r=[]
 p=[]
 keep=n
+n=int(Decimal(n))
 if m==0:
     while n>0:
         t=n%2
@@ -22,7 +17,10 @@ if m==0:
         n=n/2
     for x in range(len(j)):
         i.append(j[x]*(10**x))
+    mov=keep%1
     if mov !=0:
+        bow=(len(str(mov)))-2
+        mov=int(mov*10**bow)
         mov=mov*(10**(-len(str(mov))))
         while mov!=1.0:
             mov=mov-int(mov)
@@ -32,9 +30,10 @@ if m==0:
             if mov<1.0:
                 r.append(0)
         r=[str(x) for x in r]
-        print n, "is", str(sum(i))+"."+"".join(r), "in Binaries"
-    print keep, "is", sum(i), "in Binaries"
-
+        print keep, "is", str(sum(i))+"."+"".join(r), "in Binaries"
+    else:
+        print keep, "is", str(sum(i)), "in Binaries"
+        
 if m==1:
     for x in range(len(str(n))):
         k=n/(10**x)
@@ -49,18 +48,15 @@ if m==1:
     for x in range(len(a)):
         p.append(a[x]*(2**count))
         count=count+1
-    
-    lol=len(str(mov))
-    aus=[]
+    lost=[]
     healer=[]
-    for x in xrange(0, lol):
-        rain=mov/(10**x)
-        aus.append(rain)
-   
-    aus.reverse()
-    for x in xrange(len(aus)):
-        aus[x]=(aus[x]/10.0)
-    aus=[int(((x-int(x))+0.01)*10) for x in aus]
-    for x in range(len(aus)):
-        healer.append(aus[x]*(2**(-(x+1))))
+    mov=keep%1
+    if mov!=0:
+        for x in str(mov):
+            lost.append(x)
+        for x in xrange(2):
+            lost.pop(0)
+        pure="".join(lost)
+        for x in range(len(pure)):
+            healer.append(int(pure[x])*(2**(-(x+1))))
     print n, "is", sum(p)+sum(healer), "in Decimals"    
