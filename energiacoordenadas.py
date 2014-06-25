@@ -5,8 +5,12 @@ import math as m
 dt=input("Numero de cargas")
 j=np.zeros((dt,4))	# it show the coordinates of each charge, the last row indicates charge's sign
 n=-1			# n will help us to identify the n charges (from 0 to n-1)
-fig = plt.figure()	#Axes Definition and Graph start point
-ax = Axes3D(fig)
+fig = plt.figure()	
+ax = fig.add_subplot(1,2,1, projection='3d') 
+ax.set_title("$Cristal cubico$",fontsize=20)
+scatter1=lines.Line2D([0],[0],linestyle="none",marker='o',color="#ffff00")
+scatter2=lines.Line2D([0],[0],linestyle="none",marker='o',color="#483d8b")
+ax.legend([scatter1,scatter2],['Cation','Anion'],numpoints=1)
 for dot in range (dt):	#locating charges
 	print dot
 	x=input("x:")
@@ -23,16 +27,13 @@ for dot in range (dt):	#locating charges
 o=(m.factorial(dt))/(m.factorial(2)*m.factorial(dt-2))	#All the possible distances between the charges
 d=np.zeros((o,1))
 i=-1
+ax = fig.add_subplot(1,2,2, projection='3d')
 for k in range (dt):
 	for h in range (k+1,dt):				#combining the charges
 		i+=1						#Pythagorean Theorem
-		d[i]=(((j[k,0]-j[h,0])**2+(j[k,1]-j[h,1])**2+(j[k,2]-j[h,2])**2)**0.5)*(j[k,3]*j[h,3]) 
-# print d, it shows the distance and the sign between all the cahrges, you can enabled to understand better
+		d[i]=(((j[k,0]-j[h,0])**2+(j[k,1]-j[h,1])**2+(j[k,2]-j[h,2])**2)**0.5)*(j[k,3]*j[h,3])
+		p,s,t=[j[k,0],j[h,0]],[j[k,1],j[h,1]],[j[k,2],j[h,2]]
+		ax.plot(p,s,t)
 u=sum(1/d)
-print u
-ax.set_xlabel('$X$')
-ax.set_ylabel('$Y$')
-ax.set_zlabel('$Z$')
-ax.set_title("$E_p$="+str(u)+"$k$", style="oblique")
-#Plot a DotCube
+ax.set_title("$E_p$="+str(u)+"$k$", fontsize=20)
 plt.show()
