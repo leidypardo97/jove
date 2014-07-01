@@ -59,4 +59,4 @@ if m==1:
         pure="".join(lost)
         for x in range(len(pure)):
             healer.append(int(pure[x])*(2**(-(x+1))))
-    print n, "Is", sum(p)+sum(healer), "in Decimals"    
+    print keep, "Is", sum(p)+sum(healer), "in Decimals"    
