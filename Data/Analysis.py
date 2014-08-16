@@ -1,3 +1,13 @@
+"""
+Author: Alejandro Cardenas-Avendano
+
+email: alejandro.cardenasa@konradlorenz.edu.co
+Website: https://github.com/alejandroc137
+License: BSD
+Please feel free to use and modify this, but keep the above information. Thanks!
+"""
+
+
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 
