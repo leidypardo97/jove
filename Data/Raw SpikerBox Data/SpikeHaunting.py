@@ -34,7 +34,7 @@ for x in range (n):
 			det[x,0]=1
 
 aus=np.zeros((9,220))								#Save data around the spike 
-cansada=0									
+cansada=0									# To improve: the 9 only works in this record
 for x in range (n):			
 	if(det[x,0]==1):
 		aus[cansada]=np.hstack((alwc[det[x,1]-110:det[x,1]+110,1]))
