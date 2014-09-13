@@ -4,7 +4,7 @@ import numpy as np
 
 
 # read audio samples
-input_data= wavfile.read('/home/ana/grilloa.wav')
+input_data= wavfile.read('grilloa.wav')
 audio = input_data[1]
 l=len(audio)
 audio_l=np.vstack(audio[0:l,0])
