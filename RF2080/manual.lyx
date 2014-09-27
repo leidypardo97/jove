@@ -666,9 +666,13 @@ Accuracy and the One-Step Calibrator
 \end_layout
 
 \begin_layout Standard
-method should allow observers to measure antenna temperature of Jovian and
- solar bursts to a reasonable accuracy (+/- 1 dB) except in the compression
- region.
+In an ideal world we would calibrate the receiving system performance at
+ many different temperatures – well up into the compression region.
+ However, in the interest of simplicity and cost we can use a one-step calibrato
+r.
+ If gains are set as recommended, this method should allow observers to
+ measure antenna temperature of Jovian and solar bursts to a reasonable
+ accuracy (+/- 1 dB) except in the compression region.
  Of course a multi-step calibrator such as the RF2050 can also be used (with
  the RF2050 you can use a single temperature and the cal wizard or use all
  6 temperatures and derive a calibration equation which can be entered into
