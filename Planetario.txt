@@ -43,9 +43,8 @@ Viernes 24 de Octubre:
 
 12:00-16:00
 1. Ana Moreno (Análisis de datos SpikerBox) (T.I. 98021565393)
-2. Esneider Escobar (Construcción del Receptor)(T.I 98020153083)
-3. David Criollo (Construcción de la Antena) (T.I 97020600687)
-4. Leidy Pardo (¿Cómo se toman los datos?) (T.I 97090116634)
+2. David Criollo (Construcción de la Antena) (T.I 97020600687)
+3. Leidy Pardo (¿Cómo se toman los datos?) (T.I 97090116634)
 
 Presentación Auditorio:
 Ana Moreno (15:30-16:00)
