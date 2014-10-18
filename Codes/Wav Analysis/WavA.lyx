@@ -1,0 +1,293 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\branch fgdf
+\selected 0
+\filename_suffix 0
+\color #faf0e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Analisis de .Wav
+\end_layout
+
+\begin_layout Author
+Edwin Mahecha
+\end_layout
+
+\begin_layout Date
+Octubre, 2014
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Standard
+Los siguiente códigos fueron elaborados con la finalidad de realizar un
+ analisis a los archivos ejemplo de sonido proporcionados por la NASA para
+ el proyecto Jove.
+ Estos archivos de sonido de pueden descargar directamente de la página
+ del proyecto 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://radiojove.gsfc.nasa.gov/
+\end_layout
+
+\end_inset
+
+.
+ Los datos tomados RadioSkyPipe para el proyecto, se podran comparar frente
+ a estos datos.
+ Cabe resaltar que las unidades de RadioSkyPipe no van a ser muchas veces
+ compatibles con los resultados de los archivos *.wav.
+\end_layout
+
+\begin_layout Standard
+El programa hasta el momentop está dividido en cinco secciones que se explicaran
+ a continuación.
+ El programa no es completamente universal, ya que es necesario el uso de
+ librerias externas al la instalación básica de python, por lo cual se recomiend
+a verificar que librerias son requeridas o instalar el paquete de anaconda
+ disponible aquí: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://store.continuum.io/cshop/anaconda/
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Se espera que prontamente el programa poseea una implementación gráfica,
+ ya que como tal la mayoría de acciones se realizan por medio de la terminal
+ del sistema.
+\end_layout
+
+\begin_layout Section
+Código
+\end_layout
+
+\begin_layout Standard
+Como tal el codigo posee cinco secciones, y se espera crear otro tipo de
+ analisis a futuro haciedo uso de otros algoritmos y funciones matemáticas
+ como por ejemplo FFT (Fast Fourier Transform).
+\end_layout
+
+\begin_layout Subsection
+Importando Librerías
+\end_layout
+
+\begin_layout Standard
+El programa en total importa 10 liberrias , las cuales nos permiten el manejo
+ gráfico y de datos en el programa.
+\end_layout
+
+\begin_layout Standard
+	
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+import wave
+\end_layout
+
+\begin_layout Plain Layout
+import contextlib
+\end_layout
+
+\begin_layout Plain Layout
+import scipy
+\end_layout
+
+\begin_layout Plain Layout
+from pylab import*
+\end_layout
+
+\begin_layout Plain Layout
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+import math
+\end_layout
+
+\begin_layout Plain Layout
+from scipy.io import wavfile
+\end_layout
+
+\begin_layout Plain Layout
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+from Tkinter import Tk
+\end_layout
+
+\begin_layout Plain Layout
+from tkFileDialog import askopenfilename
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Selección del archivo
+\end_layout
+
+\begin_layout Standard
+Para esto se hace uso de la librería Tkinter.
+ Esta ejecuta un cuadro de dialogo en el cual se puede buscar el archivo
+ en específico.
+\end_layout
+
+\begin_layout Standard
+Si se ve con detalle, se puede apreciar la impelemntación anterior a Tkinter.
+ Dicha implementación era limitada, ya que solo permitica bucar archivos
+ en determinado folder, a diferencia de Tkinter que permite hacer un uso
+ más extensivo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+#List files in Directory - Non Graphic mode 
+\end_layout
+
+\begin_layout Plain Layout
+'''direct=os.chdir("/home/%s/jove/Sample Data"%getuser())
+\end_layout
+
+\begin_layout Plain Layout
+files=glob.glob('*.wav')
+\end_layout
+
+\begin_layout Plain Layout
+num=0
+\end_layout
+
+\begin_layout Plain Layout
+for x in files:
+\end_layout
+
+\begin_layout Plain Layout
+print "- %s = %i"%(x, num)
+\end_layout
+
+\begin_layout Plain Layout
+num+=1
+\end_layout
+
+\begin_layout Plain Layout
+var=input("Select File:")
+\end_layout
+
+\begin_layout Plain Layout
+#Select Files
+\end_layout
+
+\begin_layout Plain Layout
+if var>(num-1) or var<0:
+\end_layout
+
+\begin_layout Plain Layout
+raise ValueError("No valid argument")'''
+\end_layout
+
+\begin_layout Plain Layout
+#Graphic Mode Tk().withdraw()
+\end_layout
+
+\begin_layout Plain Layout
+fname = askopenfilename() # show an "Open" dialog box and return the path
+ to the selected file
+\end_layout
+
+\begin_layout Plain Layout
+print "File Selected: "+fname
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
