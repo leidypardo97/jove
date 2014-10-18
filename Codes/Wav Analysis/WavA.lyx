@@ -1,5 +1,5 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass article
@@ -12,13 +12,13 @@
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -28,15 +28,24 @@
 \use_hyperref false
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 1
 \branch fgdf
 \selected 0
@@ -150,53 +159,58 @@ El programa en total importa 10 liberrias , las cuales nos permiten el manejo
 
 \begin_layout Standard
 	
-\begin_inset Float algorithm
-wide false
-sideways false
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
+
 import wave
 \end_layout
 
 \begin_layout Plain Layout
+
 import contextlib
 \end_layout
 
 \begin_layout Plain Layout
+
 import scipy
 \end_layout
 
 \begin_layout Plain Layout
+
 from pylab import*
 \end_layout
 
 \begin_layout Plain Layout
+
 import numpy as np
 \end_layout
 
 \begin_layout Plain Layout
+
 import math
 \end_layout
 
 \begin_layout Plain Layout
+
 from scipy.io import wavfile
 \end_layout
 
 \begin_layout Plain Layout
+
 import matplotlib.pyplot as plt
 \end_layout
 
 \begin_layout Plain Layout
+
 from Tkinter import Tk
 \end_layout
 
 \begin_layout Plain Layout
+
 from tkFileDialog import askopenfilename
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \end_inset
@@ -222,71 +236,423 @@ Si se ve con detalle, se puede apreciar la impelemntación anterior a Tkinter.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float algorithm
-wide false
-sideways false
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-#List files in Directory - Non Graphic mode 
+
+#List files in Directory - Non Graphic mode
 \end_layout
 
 \begin_layout Plain Layout
+
 '''direct=os.chdir("/home/%s/jove/Sample Data"%getuser())
 \end_layout
 
 \begin_layout Plain Layout
+
 files=glob.glob('*.wav')
 \end_layout
 
 \begin_layout Plain Layout
+
 num=0
 \end_layout
 
 \begin_layout Plain Layout
+
 for x in files:
 \end_layout
 
 \begin_layout Plain Layout
-print "- %s = %i"%(x, num)
+
+    print "- %s = %i"%(x, num)
 \end_layout
 
 \begin_layout Plain Layout
-num+=1
+
+    num+=1
 \end_layout
 
 \begin_layout Plain Layout
+
 var=input("Select File:")
 \end_layout
 
 \begin_layout Plain Layout
+
 #Select Files
 \end_layout
 
 \begin_layout Plain Layout
+
 if var>(num-1) or var<0:
 \end_layout
 
 \begin_layout Plain Layout
-raise ValueError("No valid argument")'''
+
+    raise ValueError("No valid argument")'''
 \end_layout
 
 \begin_layout Plain Layout
-#Graphic Mode Tk().withdraw()
+
 \end_layout
 
 \begin_layout Plain Layout
-fname = askopenfilename() # show an "Open" dialog box and return the path
- to the selected file
+
+#Graphic Mode
 \end_layout
 
 \begin_layout Plain Layout
+
+Tk().withdraw()
+\end_layout
+
+\begin_layout Plain Layout
+
+fname = askopenfilename()
+\end_layout
+
+\begin_layout Plain Layout
+
+# show an "Open" dialog box and return the path to the selected file
+\end_layout
+
+\begin_layout Plain Layout
+
 print "File Selected: "+fname
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Duración de Archivo
+\end_layout
+
+\begin_layout Standard
+Esta implementación nos permite saber la duración del archivo.
+ Esta es dada en segundos y es el resultado de:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $d=\frac{frames}{rate}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#fname="/home/edwmapa/jove/Sample Data/"+files[var]
+\end_layout
+
+\begin_layout Plain Layout
+
+#File Duration frames/rate
+\end_layout
+
+\begin_layout Plain Layout
+
+with contextlib.closing(wave.open(fname,'r')) as f:
+\end_layout
+
+\begin_layout Plain Layout
+
+    frames = f.getnframes()
+\end_layout
+
+\begin_layout Plain Layout
+
+    rate = f.getframerate()
+\end_layout
+
+\begin_layout Plain Layout
+
+    duration = frames / float(rate)
+\end_layout
+
+\begin_layout Plain Layout
+
+    print "File length: %f Sec."%duration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Gráfica Amplitud Vs.
+ Tiempo
+\end_layout
+
+\begin_layout Standard
+Se hace uso de la librería scipy.io, para leer el archivo *.wav.
+\end_layout
+
+\begin_layout Standard
+Esta librería lee el archivo *.wav, leyendo dos datos, sampleFeq y snd.
+ snd contiene los puntos de la gŕafica(Amplitudes).
+ Se puede apreciar que se hace uso de la función shape() la cual nos permite
+ determinar cuantos canales tiene el sonido.
+ Los archivos de ejemplo únicamente poseen un canal, sin embargo otras grabacion
+es puedesn poseer varios canales, por eso unicamente se toma el primer canal.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#wavfile.read() returns rate and data in numpy array
+\end_layout
+
+\begin_layout Plain Layout
+
+input_data=wavfile.read(fname)
+\end_layout
+
+\begin_layout Plain Layout
+
+sampFreq, snd = input_data
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+snd = snd / (2.**15)
+\end_layout
+
+\begin_layout Plain Layout
+
+print "This is the shape of the sound (sample points, chanels sound):"
+\end_layout
+
+\begin_layout Plain Layout
+
+print(snd.shape)
+\end_layout
+
+\begin_layout Plain Layout
+
+#If the sound has more than one channel, only load first channel
+\end_layout
+
+\begin_layout Plain Layout
+
+if len(snd.shape)!=1:
+\end_layout
+
+\begin_layout Plain Layout
+
+    snd=snd[:,0]
+\end_layout
+
+\begin_layout Plain Layout
+
+#Arange of ms
+\end_layout
+
+\begin_layout Plain Layout
+
+samplePoints=snd.shape[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+timeArray = arange(0,float(snd.shape[0]), 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+timeArray = timeArray / sampFreq
+\end_layout
+
+\begin_layout Plain Layout
+
+timeArray = timeArray
+\end_layout
+
+\begin_layout Plain Layout
+
+#scale to seconds
+\end_layout
+
+\begin_layout Plain Layout
+
+maxV=(np.amax(snd))+.05#Max Value of snd
+\end_layout
+
+\begin_layout Plain Layout
+
+minV=(np.amin(snd))-.05
+\end_layout
+
+\begin_layout Plain Layout
+
+#yDuration yduration = np.array(duration)
+\end_layout
+
+\begin_layout Plain Layout
+
+yduration = np.repeat(yduration,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+%matplotlib inline
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(figsize=(20,10))
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(timeArray,snd,'b')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(yduration,np.linspace(minV,maxV, 2), "r--")#Limit line
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylim(-maxV,maxV)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title("File: "+fname)
+\end_layout
+
+\begin_layout Plain Layout
+
+ylabel('Amplitude')
+\end_layout
+
+\begin_layout Plain Layout
+
+xlabel('Time (sec.)')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Histograma
+\end_layout
+
+\begin_layout Standard
+El histograma básicamente permite ver las veces que una amplitud se repite
+ a lo largo de todo el archivo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#%matplotlib inline
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(figsize=(20,10))
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.hist(snd, bins=200)
+\end_layout
+
+\begin_layout Plain Layout
+
+xlabel('Amplitude')
+\end_layout
+
+\begin_layout Plain Layout
+
+ylabel('Times Repeated')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+FFT (Fast Fourier Transform)
+\end_layout
+
+\begin_layout Standard
+La Transformada Rápida de Fourier, y más específicamente la Transformada
+ de Fourier Discreta, nos permite tomar una seie de datos de longitud finita,
+ para dar una representacion del dominio de la frecuencia.
+ La siguiente fórmula corresponde a la Transformada Discreta:
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\size large
+\begin_inset Formula $\begin{aligned}y[k]=\sum_{n=0}^{N-1}e^{-2\pi j\frac{kn}{N}}x[n]\,,\end{aligned}
+$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+En la formula N es una seuencia de números complejos (
+\begin_inset Formula $X_{0},$
+\end_inset
+
+ ...,
+\begin_inset Formula $X_{N-1}$
+\end_inset
+
+).
+ Esta secunecia es transformada en otra secuencia de N valores por medio
+ de la ecuación anterior.
+\end_layout
+
+\begin_layout Standard
+\noindent
+La DFT busca hallar 
+\begin_inset Formula $y\left[k\right]$
+\end_inset
+
+, partiendo de 
+\begin_inset Formula $X\left[n\right]$
+\end_inset
+
+.
 \end_layout
 
 \end_body
