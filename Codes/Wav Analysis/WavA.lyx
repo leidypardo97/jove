@@ -132,20 +132,14 @@ https://store.continuum.io/cshop/anaconda/
 .
 \end_layout
 
-\begin_layout Standard
-Se espera que prontamente el programa poseea una implementación gráfica,
- ya que como tal la mayoría de acciones se realizan por medio de la terminal
- del sistema.
-\end_layout
-
 \begin_layout Section
 Código
 \end_layout
 
 \begin_layout Standard
-Como tal el codigo posee cinco secciones, y se espera crear otro tipo de
- analisis a futuro haciedo uso de otros algoritmos y funciones matemáticas
- como por ejemplo FFT (Fast Fourier Transform).
+Este código nos permite realizar un análisis directo a archivos de audio.
+ Hacendo uso de archivos de ejemplo proporcionados por la NASA, y otros
+ archivos grabados localmente, permitieron el desarrollo de este análisis.
 \end_layout
 
 \begin_layout Subsection
@@ -153,7 +147,7 @@ Importando Librerías
 \end_layout
 
 \begin_layout Standard
-El programa en total importa 10 liberrias , las cuales nos permiten el manejo
+El programa en total importa 10 liberias , las cuales nos permiten el manejo
  gráfico y de datos en el programa.
 \end_layout
 
@@ -230,8 +224,8 @@ Para esto se hace uso de la librería Tkinter.
 
 \begin_layout Standard
 Si se ve con detalle, se puede apreciar la impelemntación anterior a Tkinter.
- Dicha implementación era limitada, ya que solo permitica bucar archivos
- en determinado folder, a diferencia de Tkinter que permite hacer un uso
+ Dicha implementación era limitada, ya que solo permitia buscar archivos
+ en determinada carpeta, a diferencia de Tkinter que permite hacer un uso
  más extensivo.
 \end_layout
 
@@ -561,6 +555,14 @@ xlabel('Time (sec.)')
 
 \end_layout
 
+\begin_layout Standard
+La amplitud dada en esta gráfica está dada en volts (
+\begin_inset Formula $v$
+\end_inset
+
+), y los valores graficados estan en el orden de los milivolts.
+\end_layout
+
 \begin_layout Subsection
 Histograma
 \end_layout
@@ -653,6 +655,180 @@ La DFT busca hallar
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $y\left[k\right]$
+\end_inset
+
+es la frecuencia resultante.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+from scipy.signal 
+\end_layout
+
+\begin_layout Plain Layout
+
+import hann from scipy.fftpack import rfft
+\end_layout
+
+\begin_layout Plain Layout
+
+input_data1 =wavfile.read(fname) 
+\end_layout
+
+\begin_layout Plain Layout
+
+audio1 = input_data1[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+#Sampling samp=2048
+\end_layout
+
+\begin_layout Plain Layout
+
+#Here we check the sound shape.
+ We cant work with the sound if th sound has more than one channel.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+if len(audio1.shape)!=1:
+\end_layout
+
+\begin_layout Plain Layout
+
+    audio1=audio1[:,0]      
+\end_layout
+
+\begin_layout Plain Layout
+
+#Hanning window 
+\end_layout
+
+\begin_layout Plain Layout
+
+window=hann(samp)
+\end_layout
+
+\begin_layout Plain Layout
+
+audio1 = audio1[0:samp] * window
+\end_layout
+
+\begin_layout Plain Layout
+
+#Fast Fourier Transform fft 
+\end_layout
+
+\begin_layout Plain Layout
+
+mags= abs(rfft(audio1))
+\end_layout
+
+\begin_layout Plain Layout
+
+#dB values 
+\end_layout
+
+\begin_layout Plain Layout
+
+mags= 20 * scipy.log10(mags)
+\end_layout
+
+\begin_layout Plain Layout
+
+#To 0 dB, set max mags to zero
+\end_layout
+
+\begin_layout Plain Layout
+
+mags -=max(mags)
+\end_layout
+
+\begin_layout Plain Layout
+
+#plot 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(figsize=(20,10)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(mags, label="Graph") 
+\end_layout
+
+\begin_layout Plain Layout
+
+ylabel("Magnitude $(dB)$", size =30) 
+\end_layout
+
+\begin_layout Plain Layout
+
+xlabel("Frequency Bin", size=30) 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend() 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title("Flute Spectrum", size=30)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En el códgo tambien se pude apreciar el uso de una esala logarítmica con
+ el fin de calular decibles(
+\begin_inset Formula $dB$
+\end_inset
+
+).
+ Esta escala coresponde a la ecuación:
+\begin_inset Formula 
+\[
+G_{dB}=20log_{10}(\frac{V_{1}}{V_{0}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Esta formua es aplicada en circuitos electricos, en donde 
+\begin_inset Formula $V_{0}$
+\end_inset
+
+ es un voltaje de referencia, 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+ es un voltaje dado.
 \end_layout
 
 \end_body
