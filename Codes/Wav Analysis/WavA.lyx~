@@ -113,14 +113,15 @@ http://radiojove.gsfc.nasa.gov/
 \end_inset
 
 .
- Los datos tomados seran utilizados para ser confrontados frente a los datos
- de la NASA.
- Cabe resaltar que las unidades de RadioSkyPipe(programa suministrado) no
- van a ser muchas veces compatibles con los resultados de los archivos *.wav.
+ Los datos tomados RadioSkyPipe para el proyecto, se podran comparar frente
+ a estos datos.
+ Cabe resaltar que las unidades de RadioSkyPipe no van a ser muchas veces
+ compatibles con los resultados de los archivos *.wav.
 \end_layout
 
 \begin_layout Standard
-El programa está dividido en cinco secciones que se explicaran a continuación.
+El programa hasta el momentop está dividido en cinco secciones que se explicaran
+ a continuación.
  El programa no es completamente universal, ya que es necesario el uso de
  librerias externas al la instalación básica de python, por lo cual se recomiend
 a verificar que librerias son requeridas o instalar el paquete de anaconda

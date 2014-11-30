@@ -31,7 +31,7 @@ with contextlib.closing(wave.open(fname,'r')) as f:
 
 def graphOne(whichFile):
 	#wavfile.read() returns rate and data in numpy array
-	input_data=wavfile.read(fname)
+	input_data=wavfile.read(whichFile)
 	sampFreq, snd = input_data
 
 	snd = snd / (2.**15)
@@ -53,6 +53,7 @@ def graphOne(whichFile):
 	yduration = np.array(duration)
 	yduration = np.repeat(yduration,2)
 
+	plt.figure(figsize=(20,10))
 	plt.plot(timeArray,snd,'b',label="Signal")
 	plt.plot(yduration,np.linspace(minV,maxV, 2),"r--",label="Limit") #Limit line
 	plt.ylim(-maxV,maxV)
@@ -70,7 +71,7 @@ def graphOne(whichFile):
 	plt.show()
 
 def graphTwo(whichFile):
-	input_data1 =wavfile.read(fname)
+	input_data1 =wavfile.read(whichFile)
 	audio1 = input_data1[1]
 
 	#Sampling
@@ -99,7 +100,7 @@ def graphTwo(whichFile):
 	xlabel("Frequency Bin", size=30)
 	plt.legend()
 	plt.title("Flute Spectrum", size=30)
-	plt.show
+	plt.show()
 
 
 optRead=input("Choose a graph: 1() or 2()")
